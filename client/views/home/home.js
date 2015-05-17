@@ -8,6 +8,17 @@ Template.home.helpers({
     return Channels.find();
   },
 
+  allUsersExceptMe: function () {
+    // TODO: add limit, autoscale to sidebar height
+    return Meteor.users.find({ _id: { $ne: Meteor.userId() } });
+  },
+
+  userStatusLabel: function () {
+    var label = this.status.online ? 'online' : 'offline';
+    label = this.status.idle ? 'idle' : label;
+    return label;
+  },
+
   avatar: function() {
     var user = Meteor.user();
     if (user && user.emails) {
@@ -46,5 +57,17 @@ Template.channelForm.events({
     // Show form.
     instance.$('.add-channel-form').toggleClass('hidden');
     instance.$('.add-channel-form input').focus();
+  }
+});
+
+Template.directMessagesForm.events({
+  'click': function () {
+    // ...
+  }
+});
+
+Template.directMessagesForm.helpers({
+  foo: function () {
+    // ...
   }
 });
